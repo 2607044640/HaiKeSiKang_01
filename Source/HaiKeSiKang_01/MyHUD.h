@@ -45,8 +45,5 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Utility")
 	void ReadJsonFunc(FString JsonStr);
 
-	UFUNCTION(BlueprintCallable)
-	void OutputData(FString& ContainerCode, AActor*& Actor);
-
 	//FVaRestCallDelegate VaRestCallDelegate;
 };

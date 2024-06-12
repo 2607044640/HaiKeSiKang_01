@@ -5,12 +5,18 @@
 #include "Kismet/KismetMathLibrary.h"
 void AMyHUD::ReadJsonFunc(FString JsonStr)
 {
+	
 
 	//JsonStr 仓库数据
 	TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonStr);
 	TArray<TSharedPtr<FJsonValue>> JsonValues;
 	if (FJsonSerializer::Deserialize(JsonReader, JsonValues))
 	{
+		FString TempStr = FString::Printf(TEXT("Connected"));
+		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TempStr, false);
+		UE_LOG(LogTemp, Error, TEXT("%s"), *TempStr);
+
+		
 		for (int i = 0; i < JsonValues.Num(); ++i)
 		{
 			if (JsonValues[i]->AsObject()->GetStringField("loadContainerCode") == TEXT(""))
@@ -48,13 +54,9 @@ void AMyHUD::ReadJsonFunc(FString JsonStr)
 				SpawnedActor->Tags.Add(tag);
 				
 				JsonMapLocationCodesMap.Add(TempLocationCodeStr, SpawnedActor);
-
 			}
 		}
 	}
 }
 
-void AMyHUD::OutputData(FString& ContainerCode, AActor*& Actor)
-{
-	
-}
+
